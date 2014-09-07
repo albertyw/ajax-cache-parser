@@ -10,8 +10,13 @@ function getCacheExpiry(xhr){
 
   } else if(expiresHeader !== null) {
     expires = new Date(expiresHeader);
+    if(expires == "Invalid Date"){
+      return null;
+    }
+    return expires;
+  } else {
+    return null;
   }
-  return expires;
 }
 
 module.exports.getCacheExpiry = getCacheExpiry;

@@ -1,4 +1,5 @@
 var assert = require("assert");
+var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 var parser = require("../cache_expiry_parser");
 
 // Mock XMLHttpRequest response
@@ -117,7 +118,18 @@ describe("#getCacheExpiry", function(){
   });
 });
 
-// max-age=86400
-// Sun, 07 Sep 2014 09:16:06 GMT
-// null
-
+describe("getting expiry", function(){
+  it("will work for the google logo", function(done){
+    function callback(){
+      var expiration = parser.getCacheExpiry(this);
+      assert.notEqual(expiration, undefined);
+      assert.notEqual(expiration, null);
+      assert(expiration instanceof Date);
+      done();
+    }
+    var oReq = new XMLHttpRequest();
+    oReq.onload = callback;
+    oReq.open("get", "https://www.google.com/images/srpr/logo11w.png", true);
+    oReq.send();
+  });
+});

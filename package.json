@@ -16,6 +16,7 @@
     "url": "https://github.com/simplecdn/ajax-cache-parser/issues"
   },
   "devDependencies": {
-    "mocha": "~1.21.4"
+    "mocha": "~1.21.4",
+    "xmlhttprequest": "~1.6.0"
   }
 }

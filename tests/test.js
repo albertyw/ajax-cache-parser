@@ -1,18 +1,30 @@
 var assert = require("assert");
 var parser = require("../cache_expiry_parser");
 
-// Mock for a XMLHttpRequest response
+// Mock XMLHttpRequest response
 function FakeXHR(expiresHeader, cacheControlHeader){
-  if(expiresHeader === undefined) expiresHeader = null;
-  if(cacheControlHeader === undefined) cacheControlHeader = null;
-  this.expiresHeader = expiresHeader;
-  this.cacheControlHeader = cacheControlHeader;
+  this.expiresHeader = expiresHeader || null;
+  this.cacheControlHeader = cacheControlHeader || null;
   this.getResponseHeader = function(header){
     if(header=='Expires') return this.expiresHeader;
     if(header=='Cache-Control') return this.cacheControlHeader;
   }
 }
 
+// Assert that date1 and date2 are approximately the same (< 1 second difference)
+function assertDateEqual(date1, date2){
+  var timestamp1 = date1.getTime();
+  var timestamp2 = date2.getTime();
+  assert(Math.abs(timestamp1 - timestamp2) < 1000);
+}
+
+describe("#nowPlusSeconds", function(){
+  it("will return the correct time", function(){
+    var currentTimestamp = new Date().getTime() / 1000;
+    var epoch = parser.nowPlusSeconds(-currentTimestamp);
+    assertDateEqual(epoch, new Date(0));
+  });
+});
 
 describe("#getCacheExpiry", function(){
   describe("with no expiry headers", function(){
@@ -28,11 +40,25 @@ describe("#getCacheExpiry", function(){
       var expiry = parser.getCacheExpiry(xhr);
       assert.equal(expiry.toISOString(), "2014-09-07T09:16:06.000Z");
     });
-    it("will return null if the Expires header is in the past");
-    it("will act like there is no Expires header if it is unparseable");
+    it("will act like there is no Expires header if it is unparseable", function(){
+      var xhr = new FakeXHR('foo');
+      var expiry = parser.getCacheExpiry(xhr);
+      assert.equal(expiry, null);
+    });
   });
   describe("reading from the Cache-Control header", function(){
-    it("will return the time computed from max-age");
+    it("will return the time computed from max-age", function(){
+      var xhr = new FakeXHR(null, 'max-age=86400');
+      var expiry = parser.getCacheExpiry(xhr);
+      var expectedExpiry = parser.nowPlusSeconds(86400);
+      assertDateEqual(expiry, expectedExpiry);
+    });
+    it("will return undefined if there is no max-age", function(){
+      var xhr = new FakeXHR(null, 's-maxage=86400');
+      var expiry = parser.getCacheExpiry(xhr);
+      assert.equal(expiry, undefined);
+    });
+    it("will return null if the max-age is invalid");
     it("will ignore s-maxage");
     it("will include times with the public keyword");
     it("will include times with the private keyword");
@@ -40,6 +66,13 @@ describe("#getCacheExpiry", function(){
     it("will return null for no-store");
     it("will ignore the must-revalidate keyword");
     it("will ignore the proxy-revalidate keyword");
+  });
+  describe("sanity checking", function(){
+    it("will nullify expiration times in the past", function(){
+      var xhr = new FakeXHR('Thr, 01 Jan 1970 00:00:00 GMT', undefined);
+      var expiry = parser.getCacheExpiry(xhr);
+      assert.equal(expiry, null);
+    });
   });
 });
 

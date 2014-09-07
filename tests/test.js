@@ -58,14 +58,55 @@ describe("#getCacheExpiry", function(){
       var expiry = parser.getCacheExpiry(xhr);
       assert.equal(expiry, undefined);
     });
-    it("will return null if the max-age is invalid");
-    it("will ignore s-maxage");
-    it("will include times with the public keyword");
-    it("will include times with the private keyword");
-    it("will return null for no-cache");
-    it("will return null for no-store");
-    it("will ignore the must-revalidate keyword");
-    it("will ignore the proxy-revalidate keyword");
+    it("will return undefined if the max-age is invalid", function(){
+      var xhr = new FakeXHR(null, 'max-age=asdf');
+      var expiry = parser.getCacheExpiry(xhr);
+      assert.equal(expiry, undefined);
+    });
+    it("will ignore s-maxage", function(){
+      var xhr = new FakeXHR(null, 's-maxage=86400');
+      var expiry = parser.getCacheExpiry(xhr);
+      assert.equal(expiry, undefined);
+    });
+    it("will include times with the public keyword", function(){
+      var xhr = new FakeXHR(null, 'max-age=3600, public');
+      var expiry = parser.getCacheExpiry(xhr);
+      var expectedExpiry = parser.nowPlusSeconds(3600);
+      assertDateEqual(expiry, expectedExpiry);
+    });
+    it("will include times with the private keyword", function(){
+      var xhr = new FakeXHR(null, 'max-age=3600, private');
+      var expiry = parser.getCacheExpiry(xhr);
+      var expectedExpiry = parser.nowPlusSeconds(3600);
+      assertDateEqual(expiry, expectedExpiry);
+    });
+    it("will return null for no-cache", function(){
+      var xhr = new FakeXHR(null, 'no-cache');
+      var expiry = parser.getCacheExpiry(xhr);
+      assert.equal(expiry, null);
+    });
+    it("will return null for no-store", function(){
+      var xhr = new FakeXHR(null, 'no-cache');
+      var expiry = parser.getCacheExpiry(xhr);
+      assert.equal(expiry, null);
+    });
+    it("will ignore the must-revalidate keyword", function(){
+      var xhr = new FakeXHR(null, 'no-cache, must-revalidate');
+      var expiry = parser.getCacheExpiry(xhr);
+      assert.equal(expiry, null);
+    });
+    it("will ignore the proxy-revalidate keyword", function(){
+      var xhr = new FakeXHR(null, 'max-age=3600, proxy-revalidate');
+      var expiry = parser.getCacheExpiry(xhr);
+      var expectedExpiry = parser.nowPlusSeconds(3600);
+      assertDateEqual(expiry, expectedExpiry);
+    });
+    it("will ignore unknown keywords", function(){
+      var xhr = new FakeXHR(null, 'max-age=3600, asdf, qwer');
+      var expiry = parser.getCacheExpiry(xhr);
+      var expectedExpiry = parser.nowPlusSeconds(3600);
+      assertDateEqual(expiry, expectedExpiry);
+    });
   });
   describe("sanity checking", function(){
     it("will nullify expiration times in the past", function(){

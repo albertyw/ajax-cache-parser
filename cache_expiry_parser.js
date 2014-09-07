@@ -52,7 +52,7 @@ function parseCacheControlAge(maxAge, expiry){
   }
   var seconds = maxAge.split('=')[1].trim();
   seconds = parseInt(seconds);
-  if(seconds === NaN){
+  if(isNaN(seconds)){
     return undefined;
   }else{
     return nowPlusSeconds(seconds);

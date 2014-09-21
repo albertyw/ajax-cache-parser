@@ -24,7 +24,7 @@ function getCacheExpiry(xhr){
  * returns undefined if there is no valid Cache-Control header
  **/
 function parseCacheControlHeader(cacheControlHeader){
-  if(cacheControlHeader === null){
+  if(cacheControlHeader === null || cacheControlHeader === undefined){
     return undefined;
   }
   var headerData = cacheControlHeader.split(",");
@@ -86,7 +86,7 @@ function parseCacheControlKeyword(keyword, expiry){
  * returns undefined if there is no valid Cache-Control header
  **/
 function parseExpiresHeader(expiresHeader){
-  if(expiresHeader === null) {
+  if(expiresHeader === null || expiresHeader === undefined) {
     return undefined;
   }
   expires = new Date(expiresHeader);

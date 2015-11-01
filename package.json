@@ -8,12 +8,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/simplecdn/ajax-cache-parser.git"
+    "url": "git://github.com/albertyw/ajax-cache-parser.git"
   },
   "author": "Albert Wang",
   "license": "Apache2",
   "bugs": {
-    "url": "https://github.com/simplecdn/ajax-cache-parser/issues"
+    "url": "https://github.com/albertyw/ajax-cache-parser/issues"
   },
   "devDependencies": {
     "mocha": "~1.21.4",

@@ -11,7 +11,7 @@
     "url": "git://github.com/albertyw/ajax-cache-parser.git"
   },
   "author": "Albert Wang",
-  "license": "Apache2",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/albertyw/ajax-cache-parser/issues"
   },

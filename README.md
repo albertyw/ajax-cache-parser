@@ -1,6 +1,8 @@
 ajax-cache-parser
 =================
 
+[ ![Codeship Status for albertyw/ajax-cache-parser](https://codeship.com/projects/86d1e680-ba55-0133-baa7-025ac38368ea/status?branch=master)](https://codeship.com/projects/135666)
+
 A small function to get when an ajax request expires
 
 Given an XMLHttpRequest object that has received response headers back from a server, `getCacheExpiry` will return

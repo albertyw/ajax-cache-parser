@@ -1,3 +1,10 @@
+## 1.1.1 (2016-02-20)
+
+Cleanup
+ - Cleanup code
+ - Update development dependencies
+ - Add README badges
+
 ## 1.1.0 (2015-10-31)
 
 Features

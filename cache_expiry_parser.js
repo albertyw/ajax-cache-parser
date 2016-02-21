@@ -28,11 +28,10 @@ function parseCacheControlHeader(cacheControlHeader){
     return undefined;
   }
   var headerData = cacheControlHeader.split(",");
-  var expiry = undefined;
-  var keyword;
+  var expiry, keyword;
   for(var i=0; i<headerData.length; i++){
     keyword = headerData[i].trim();
-    if(keyword.indexOf("max-age") > -1){
+    if(keyword.includes("max-age")){
       expiry = parseCacheControlAge(keyword, expiry);
     }else{
       expiry = parseCacheControlKeyword(keyword, expiry);
@@ -51,7 +50,7 @@ function parseCacheControlAge(maxAge, expiry){
     return expiry;
   }
   var seconds = maxAge.split('=')[1].trim();
-  seconds = parseInt(seconds);
+  seconds = parseInt(seconds, 10);
   if(isNaN(seconds)){
     return undefined;
   }else{
@@ -64,16 +63,16 @@ function parseCacheControlAge(maxAge, expiry){
  * returns expiry Date, undefined, or null depending on the keyword behavior
  **/
 function parseCacheControlKeyword(keyword, expiry){
-  if(keyword.indexOf("public") > -1 || keyword.indexOf("private") > -1){
+  if(keyword.includes("public") || keyword.includes("private")){
     return expiry;
   }
-  if(keyword.indexOf("no-cache") > -1 || keyword.indexOf("no-store") > -1){
+  if(keyword.includes("no-cache") || keyword.includes("no-store")){
     return null;
   }
-  if(keyword.indexOf("must-revalidate") > -1 || keyword.indexOf("proxy-revalidate") > -1){
+  if(keyword.includes("must-revalidate") || keyword.includes("proxy-revalidate")){
     return expiry; // Noop
   }
-  if(keyword.indexOf("s-maxage") > -1){
+  if(keyword.includes("s-maxage")){
     return expiry; // Noop
   }
   return expiry; // Unknown keyword, Noop
@@ -90,7 +89,7 @@ function parseExpiresHeader(expiresHeader){
     return undefined;
   }
   expires = new Date(expiresHeader);
-  if(expires == "Invalid Date"){
+  if(expires.toString() === "Invalid Date"){
     return null;
   }
   return expires;

@@ -37,9 +37,9 @@ describe("#getCacheExpiry", function(){
   });
   describe("reading from Expires header", function(){
     it("will return the expires header if the cache control doesn't exist", function(){
-      var xhr = new FakeXHR('Sun, 07 Sep 2014 09:16:06 GMT');
+      var xhr = new FakeXHR('Sun, 07 Sep 2100 09:16:06 GMT');
       var expiry = parser.getCacheExpiry(xhr);
-      assert.equal(expiry.toISOString(), "2014-09-07T09:16:06.000Z");
+      assert.equal(expiry.toISOString(), "2100-09-07T09:16:06.000Z");
     });
     it("will act like there is no Expires header if it is unparseable", function(){
       var xhr = new FakeXHR('foo');

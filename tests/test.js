@@ -54,6 +54,11 @@ describe("#getCacheExpiry", function(){
       var expectedExpiry = parser.nowPlusSeconds(86400);
       assertDateEqual(expiry, expectedExpiry);
     });
+    it("will return undefined if there is contradictory cache age", function(){
+      var xhr = new FakeXHR(null, 'no-cache, max-age=86400');
+      var expiry = parser.getCacheExpiry(xhr);
+      assert.equal(expiry, undefined);
+    });
     it("will return undefined if there is no max-age", function(){
       var xhr = new FakeXHR(null, 's-maxage=86400');
       var expiry = parser.getCacheExpiry(xhr);

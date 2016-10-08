@@ -1,3 +1,10 @@
+# Changelog
+
+## 1.1.2 (2016-10-08)
+
+Cleanup
+ - Update mocha package to 3.*
+
 ## 1.1.1 (2016-02-20)
 
 Cleanup

@@ -1,6 +1,6 @@
 {
   "name": "ajax-cache-parser",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "A small function to get when an ajax request expires",
   "main": "cache_expiry_parser.js",
   "scripts": {

@@ -6,10 +6,10 @@
  **/
 
 function getCacheExpiry(xhr){
-  var expiresHeader = xhr.getResponseHeader('Expires');
-  var cacheControlHeader = xhr.getResponseHeader('Cache-Control');
+  const expiresHeader = xhr.getResponseHeader('Expires');
+  const cacheControlHeader = xhr.getResponseHeader('Cache-Control');
 
-  var expiry = parseCacheControlHeader(cacheControlHeader);
+  let expiry = parseCacheControlHeader(cacheControlHeader);
   if(expiry === undefined) {
     expiry = parseExpiresHeader(expiresHeader);
   }
@@ -27,9 +27,9 @@ function parseCacheControlHeader(cacheControlHeader){
   if(cacheControlHeader === null || cacheControlHeader === undefined){
     return undefined;
   }
-  var headerData = cacheControlHeader.split(",");
-  var expiry, keyword;
-  for(var i=0; i<headerData.length; i++){
+  const headerData = cacheControlHeader.split(",");
+  let expiry, keyword;
+  for(let i=0; i<headerData.length; i++){
     keyword = headerData[i].trim();
     if(keyword.includes("max-age")){
       expiry = parseCacheControlAge(keyword, expiry);
@@ -49,7 +49,7 @@ function parseCacheControlAge(maxAge, expiry){
   if(expiry === null){
     return expiry;
   }
-  var seconds = maxAge.split('=')[1].trim();
+  let seconds = maxAge.split('=')[1].trim();
   seconds = parseInt(seconds, 10);
   if(isNaN(seconds)){
     return undefined;
@@ -109,7 +109,7 @@ function nullifyInvalidExpiration(expiration){
  * Returns the current time plus the given number of seconds into the future
  **/
 function nowPlusSeconds(seconds){
-  var now = new Date();
+  const now = new Date();
   now.setTime(now.getTime() + seconds * 1000);
   return now;
 }

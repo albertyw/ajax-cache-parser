@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.1.3 (2019-06-04)
+
+Cleanup
+ - Update dependencies
+ - Switch to ES6 let/const
+
 ## 1.1.2 (2016-10-08)
 
 Cleanup

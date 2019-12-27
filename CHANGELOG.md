@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.1.4 (2019-12-27)
+
+ - Update dependencies
+
+
 ## 1.1.3 (2019-06-04)
 
 Cleanup

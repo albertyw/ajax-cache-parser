@@ -4,7 +4,7 @@
   "description": "A small function to get when an ajax request expires",
   "main": "cache_expiry_parser.js",
   "scripts": {
-    "test": "nyc mocha"
+    "test": "nyc --reporter=lcov mocha"
   },
   "repository": {
     "type": "git",

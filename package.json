@@ -4,7 +4,7 @@
   "description": "A small function to get when an ajax request expires",
   "main": "cache_expiry_parser.js",
   "scripts": {
-    "test": "istanbul cover node_modules/.bin/_mocha tests"
+    "test": "nyc mocha"
   },
   "repository": {
     "type": "git",
@@ -16,8 +16,8 @@
     "url": "https://github.com/albertyw/ajax-cache-parser/issues"
   },
   "devDependencies": {
-    "istanbul": "~0.4.2",
-    "mocha": "^5.1.1",
+    "mocha": "^6.2.2",
+    "nyc": "^15.0.0",
     "xmlhttprequest": "~1.8.0"
   }
 }

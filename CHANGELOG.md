@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.1.5 (2020-06-04)
+
+ - Update dependencies
+
+
 ## 1.1.4 (2019-12-27)
 
  - Update dependencies

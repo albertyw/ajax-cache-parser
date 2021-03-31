@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.1.6 (2021-03-31)
+
+ - Update dependencies
+ - Switch CI from Codeship to Drone
+
+
 ## 1.1.5 (2020-06-04)
 
  - Update dependencies

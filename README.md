@@ -3,7 +3,7 @@ ajax-cache-parser
 
 [![NPM](https://nodei.co/npm/ajax-cache-parser.png?downloads=true&downloadRank=true)](https://nodei.co/npm/ajax-cache-parser/)
 
-[ ![Codeship Status for albertyw/ajax-cache-parser](https://codeship.com/projects/86d1e680-ba55-0133-baa7-025ac38368ea/status?branch=master)](https://codeship.com/projects/135666)
+[![Build Status](https://drone.albertyw.com/api/badges/albertyw/ajax-cache-parser/status.svg)](https://drone.albertyw.com/albertyw/ajax-cache-parser)
 [![Code Climate](https://codeclimate.com/github/albertyw/ajax-cache-parser/badges/gpa.svg)](https://codeclimate.com/github/albertyw/ajax-cache-parser)
 [![Test Coverage](https://codeclimate.com/github/albertyw/ajax-cache-parser/badges/coverage.svg)](https://codeclimate.com/github/albertyw/ajax-cache-parser/coverage)
 [![dependencies Status](https://david-dm.org/albertyw/ajax-cache-parser/status.svg)](https://david-dm.org/albertyw/ajax-cache-parser)

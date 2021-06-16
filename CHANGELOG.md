@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.1.7 (2021-06-15)
+
+ - Update dependencies
+
+
 ## 1.1.6 (2021-03-31)
 
  - Update dependencies

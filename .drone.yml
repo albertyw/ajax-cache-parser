@@ -9,7 +9,7 @@ volumes:
 
 steps:
   - name: Test Node
-    image: node:16
+    image: node:18
     commands:
       - npm ci
       - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > "${HOME}/bin/cc-test-reporter" && chmod +x "${HOME}/bin/cc-test-reporter"
@@ -22,7 +22,7 @@ steps:
       CC_TEST_REPORTER_ID: 590e79353f1037128b9835cb8c836b64c69af4d8a301ddf4473837b10617d1d7
 
   - name: Publish Node
-    image: node:16
+    image: node:18
     commands:
       - npm whoami
       - npm publish

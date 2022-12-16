@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.1.8 (2022-12-15)
+
+ - Update dependencies
+ - CI and README cleanup
+
+
 ## 1.1.7 (2021-06-15)
 
  - Update dependencies

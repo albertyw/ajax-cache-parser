@@ -2,11 +2,6 @@ kind: pipeline
 type: docker
 name: test
 
-volumes:
-  - name: npmrc
-    host:
-      path: /home/albertyw/.ssh/other/npmrc
-
 steps:
   - name: Test Node
     image: node:18
@@ -22,13 +17,14 @@ steps:
       CC_TEST_REPORTER_ID: 590e79353f1037128b9835cb8c836b64c69af4d8a301ddf4473837b10617d1d7
 
   - name: Publish Node
+    environment:
+      NPM_TOKEN:
+        from_secret: npm_token
     image: node:18
     commands:
+      - echo "//registry.npmjs.org/:_authToken=$${NPM_TOKEN}" > ~/.npmrc
       - npm whoami
       - npm publish
-    volumes:
-      - name: npmrc
-        path: /root/.npmrc
     when:
       event:
         - tag

@@ -6,6 +6,7 @@ ajax-cache-parser
 [![Build Status](https://drone.albertyw.com/api/badges/albertyw/ajax-cache-parser/status.svg)](https://drone.albertyw.com/albertyw/ajax-cache-parser)
 [![Code Climate](https://codeclimate.com/github/albertyw/ajax-cache-parser/badges/gpa.svg)](https://codeclimate.com/github/albertyw/ajax-cache-parser)
 [![Test Coverage](https://codeclimate.com/github/albertyw/ajax-cache-parser/badges/coverage.svg)](https://codeclimate.com/github/albertyw/ajax-cache-parser/coverage)
+[![install size](https://packagephobia.com/badge?p=ajax-cache-parser)](https://packagephobia.com/result?p=ajax-cache-parser)
 
 A small function to get when an ajax request expires
 

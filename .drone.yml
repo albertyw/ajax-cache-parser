@@ -4,7 +4,7 @@ name: test
 
 steps:
   - name: Test Node
-    image: node:18
+    image: node:21
     commands:
       - npm ci
       - curl -L "https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-$(dpkg --print-architecture)" > "${HOME}/bin/cc-test-reporter"

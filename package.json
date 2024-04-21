@@ -2,6 +2,7 @@
   "name": "ajax-cache-parser",
   "version": "1.1.8",
   "description": "A small function to get when an ajax request expires",
+  "type": "module",
   "main": "cache_expiry_parser.js",
   "scripts": {
     "test": "nyc --reporter=lcov mocha"

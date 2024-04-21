@@ -18,6 +18,7 @@
   },
   "devDependencies": {
     "c8": "^9.1.0",
+    "eslint": "^9.1.0",
     "mocha": "^10.0.0",
     "xmlhttprequest": "~1.8.0"
   }

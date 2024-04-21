@@ -5,7 +5,9 @@
   "type": "module",
   "main": "cache_expiry_parser.js",
   "scripts": {
-    "test": "c8 --reporter=lcov mocha"
+    "test": "npm run eslint && npm run mocha",
+    "mocha": "c8 --reporter=lcov mocha",
+    "eslint": "eslint -c .eslint.config.js ."
   },
   "repository": {
     "type": "git",

@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.2.0 (2024-04-21)
+
+ - Convert to ESM Module
+ - Add linter
+ - Update dependencies
+
+
 ## 1.1.8 (2022-12-15)
 
  - Update dependencies

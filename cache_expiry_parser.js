@@ -88,7 +88,7 @@ function parseExpiresHeader(expiresHeader){
   if(expiresHeader === null || expiresHeader === undefined) {
     return undefined;
   }
-  expires = new Date(expiresHeader);
+  const expires = new Date(expiresHeader);
   if(expires.toString() === "Invalid Date"){
     return null;
   }

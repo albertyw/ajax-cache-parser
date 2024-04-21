@@ -27,11 +27,11 @@ function parseCacheControlHeader(cacheControlHeader){
   if(cacheControlHeader === null || cacheControlHeader === undefined){
     return undefined;
   }
-  const headerData = cacheControlHeader.split(",");
+  const headerData = cacheControlHeader.split(',');
   let expiry, keyword;
   for(let i=0; i<headerData.length; i++){
     keyword = headerData[i].trim();
-    if(keyword.includes("max-age")){
+    if(keyword.includes('max-age')){
       expiry = parseCacheControlAge(keyword, expiry);
     }else{
       expiry = parseCacheControlKeyword(keyword, expiry);
@@ -63,16 +63,16 @@ function parseCacheControlAge(maxAge, expiry){
  * returns expiry Date, undefined, or null depending on the keyword behavior
  **/
 function parseCacheControlKeyword(keyword, expiry){
-  if(keyword.includes("public") || keyword.includes("private")){
+  if(keyword.includes('public') || keyword.includes('private')){
     return expiry;
   }
-  if(keyword.includes("no-cache") || keyword.includes("no-store")){
+  if(keyword.includes('no-cache') || keyword.includes('no-store')){
     return null;
   }
-  if(keyword.includes("must-revalidate") || keyword.includes("proxy-revalidate")){
+  if(keyword.includes('must-revalidate') || keyword.includes('proxy-revalidate')){
     return expiry; // Noop
   }
-  if(keyword.includes("s-maxage")){
+  if(keyword.includes('s-maxage')){
     return expiry; // Noop
   }
   return expiry; // Unknown keyword, Noop
@@ -89,7 +89,7 @@ function parseExpiresHeader(expiresHeader){
     return undefined;
   }
   const expires = new Date(expiresHeader);
-  if(expires.toString() === "Invalid Date"){
+  if(expires.toString() === 'Invalid Date'){
     return null;
   }
   return expires;

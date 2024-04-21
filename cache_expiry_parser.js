@@ -5,7 +5,7 @@
  * returns undefined if there is no caching information
  **/
 
-function getCacheExpiry(xhr){
+export function getCacheExpiry(xhr){
   const expiresHeader = xhr.getResponseHeader('Expires');
   const cacheControlHeader = xhr.getResponseHeader('Cache-Control');
 
@@ -108,11 +108,8 @@ function nullifyInvalidExpiration(expiration){
 /**
  * Returns the current time plus the given number of seconds into the future
  **/
-function nowPlusSeconds(seconds){
+export function nowPlusSeconds(seconds){
   const now = new Date();
   now.setTime(now.getTime() + seconds * 1000);
   return now;
 }
-
-module.exports.getCacheExpiry = getCacheExpiry;
-module.exports.nowPlusSeconds = nowPlusSeconds;

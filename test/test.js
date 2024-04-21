@@ -1,6 +1,6 @@
-const assert = require("assert");
-const XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
-const parser = require("../cache_expiry_parser");
+import assert from 'assert';
+import { XMLHttpRequest } from 'xmlhttprequest';
+import { getCacheExpiry, nowPlusSeconds } from '../cache_expiry_parser.js';
 
 // Mock XMLHttpRequest response
 function FakeXHR(expiresHeader, cacheControlHeader){
@@ -22,7 +22,7 @@ function assertDateEqual(date1, date2){
 describe("#nowPlusSeconds", function(){
   it("will return the correct time", function(){
     const currentTimestamp = new Date().getTime() / 1000;
-    const epoch = parser.nowPlusSeconds(-currentTimestamp);
+    const epoch = nowPlusSeconds(-currentTimestamp);
     assertDateEqual(epoch, new Date(0));
   });
 });
@@ -31,93 +31,93 @@ describe("#getCacheExpiry", function(){
   describe("with no expiry headers", function(){
     it("will return null", function(){
       const xhr = new FakeXHR();
-      const expiry = parser.getCacheExpiry(xhr);
+      const expiry = getCacheExpiry(xhr);
       assert.equal(expiry, null);
     });
   });
   describe("reading from Expires header", function(){
     it("will return the expires header if the cache control doesn't exist", function(){
       const xhr = new FakeXHR('Sun, 07 Sep 2100 09:16:06 GMT');
-      const expiry = parser.getCacheExpiry(xhr);
+      const expiry = getCacheExpiry(xhr);
       assert.equal(expiry.toISOString(), "2100-09-07T09:16:06.000Z");
     });
     it("will act like there is no Expires header if it is unparseable", function(){
       const xhr = new FakeXHR('foo');
-      const expiry = parser.getCacheExpiry(xhr);
+      const expiry = getCacheExpiry(xhr);
       assert.equal(expiry, null);
     });
   });
   describe("reading from the Cache-Control header", function(){
     it("will return the time computed from max-age", function(){
       const xhr = new FakeXHR(null, 'max-age=86400');
-      const expiry = parser.getCacheExpiry(xhr);
-      const expectedExpiry = parser.nowPlusSeconds(86400);
+      const expiry = getCacheExpiry(xhr);
+      const expectedExpiry = nowPlusSeconds(86400);
       assertDateEqual(expiry, expectedExpiry);
     });
     it("will return undefined if there is contradictory cache age", function(){
       const xhr = new FakeXHR(null, 'no-cache, max-age=86400');
-      const expiry = parser.getCacheExpiry(xhr);
+      const expiry = getCacheExpiry(xhr);
       assert.equal(expiry, undefined);
     });
     it("will return undefined if there is no max-age", function(){
       const xhr = new FakeXHR(null, 's-maxage=86400');
-      const expiry = parser.getCacheExpiry(xhr);
+      const expiry = getCacheExpiry(xhr);
       assert.equal(expiry, undefined);
     });
     it("will return undefined if the max-age is invalid", function(){
       const xhr = new FakeXHR(null, 'max-age=asdf');
-      const expiry = parser.getCacheExpiry(xhr);
+      const expiry = getCacheExpiry(xhr);
       assert.equal(expiry, undefined);
     });
     it("will ignore s-maxage", function(){
       const xhr = new FakeXHR(null, 's-maxage=86400');
-      const expiry = parser.getCacheExpiry(xhr);
+      const expiry = getCacheExpiry(xhr);
       assert.equal(expiry, undefined);
     });
     it("will include times with the public keyword", function(){
       const xhr = new FakeXHR(null, 'max-age=3600, public');
-      const expiry = parser.getCacheExpiry(xhr);
-      const expectedExpiry = parser.nowPlusSeconds(3600);
+      const expiry = getCacheExpiry(xhr);
+      const expectedExpiry = nowPlusSeconds(3600);
       assertDateEqual(expiry, expectedExpiry);
     });
     it("will include times with the private keyword", function(){
       const xhr = new FakeXHR(null, 'max-age=3600, private');
-      const expiry = parser.getCacheExpiry(xhr);
-      const expectedExpiry = parser.nowPlusSeconds(3600);
+      const expiry = getCacheExpiry(xhr);
+      const expectedExpiry = nowPlusSeconds(3600);
       assertDateEqual(expiry, expectedExpiry);
     });
     it("will return null for no-cache", function(){
       const xhr = new FakeXHR(null, 'no-cache');
-      const expiry = parser.getCacheExpiry(xhr);
+      const expiry = getCacheExpiry(xhr);
       assert.equal(expiry, null);
     });
     it("will return null for no-store", function(){
       const xhr = new FakeXHR(null, 'no-cache');
-      const expiry = parser.getCacheExpiry(xhr);
+      const expiry = getCacheExpiry(xhr);
       assert.equal(expiry, null);
     });
     it("will ignore the must-revalidate keyword", function(){
       const xhr = new FakeXHR(null, 'no-cache, must-revalidate');
-      const expiry = parser.getCacheExpiry(xhr);
+      const expiry = getCacheExpiry(xhr);
       assert.equal(expiry, null);
     });
     it("will ignore the proxy-revalidate keyword", function(){
       const xhr = new FakeXHR(null, 'max-age=3600, proxy-revalidate');
-      const expiry = parser.getCacheExpiry(xhr);
-      const expectedExpiry = parser.nowPlusSeconds(3600);
+      const expiry = getCacheExpiry(xhr);
+      const expectedExpiry = nowPlusSeconds(3600);
       assertDateEqual(expiry, expectedExpiry);
     });
     it("will ignore unknown keywords", function(){
       const xhr = new FakeXHR(null, 'max-age=3600, asdf, qwer');
-      const expiry = parser.getCacheExpiry(xhr);
-      const expectedExpiry = parser.nowPlusSeconds(3600);
+      const expiry = getCacheExpiry(xhr);
+      const expectedExpiry = nowPlusSeconds(3600);
       assertDateEqual(expiry, expectedExpiry);
     });
   });
   describe("sanity checking", function(){
     it("will nullify expiration times in the past", function(){
       const xhr = new FakeXHR('Thr, 01 Jan 1970 00:00:00 GMT', undefined);
-      const expiry = parser.getCacheExpiry(xhr);
+      const expiry = getCacheExpiry(xhr);
       assert.equal(expiry, null);
     });
   });
@@ -126,7 +126,7 @@ describe("#getCacheExpiry", function(){
 describe("getting expiry", function(){
   it("will work for the google logo", function(done){
     function callback(){
-      const expiration = parser.getCacheExpiry(this);
+      const expiration = getCacheExpiry(this);
       assert.notEqual(expiration, undefined);
       assert.notEqual(expiration, null);
       assert(expiration instanceof Date);

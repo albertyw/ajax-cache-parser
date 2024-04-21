@@ -5,7 +5,7 @@
   "type": "module",
   "main": "cache_expiry_parser.js",
   "scripts": {
-    "test": "nyc --reporter=lcov mocha"
+    "test": "c8 --reporter=lcov mocha"
   },
   "repository": {
     "type": "git",
@@ -17,8 +17,8 @@
     "url": "https://github.com/albertyw/ajax-cache-parser/issues"
   },
   "devDependencies": {
+    "c8": "^9.1.0",
     "mocha": "^10.0.0",
-    "nyc": "^15.1.0",
     "xmlhttprequest": "~1.8.0"
   }
 }

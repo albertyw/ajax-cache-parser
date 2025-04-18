@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.2.1 (2025-04-18)
+
+- Update dependencies
+
+
 ## 1.2.0 (2024-04-21)
 
  - Convert to ESM Module

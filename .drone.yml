@@ -4,7 +4,7 @@ name: test
 
 steps:
   - name: Test Node
-    image: node:23
+    image: node:24
     commands:
       - npm ci
       - curl -L "https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-$(dpkg --print-architecture)" > "${HOME}/bin/cc-test-reporter"
@@ -20,7 +20,7 @@ steps:
     environment:
       NPM_TOKEN:
         from_secret: npm_token
-    image: node:23
+    image: node:24
     commands:
       - echo "//registry.npmjs.org/:_authToken=$${NPM_TOKEN}" > ~/.npmrc
       - npm whoami

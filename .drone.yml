@@ -6,15 +6,12 @@ steps:
   - name: Test Node
     image: node:24
     commands:
+      - curl https://qlty.sh | sh
       - npm ci
-      - curl -L "https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-$(dpkg --print-architecture)" > "${HOME}/bin/cc-test-reporter"
-      - chmod +x "${HOME}/bin/cc-test-reporter"
-      - cc-test-reporter before-build
       - npm test
-      - exitcode="$?"
-      - cc-test-reporter after-build --exit-code "$exitcode"
+      - ~/.qlty/bin/qlty coverage publish coverage/lcov.info --override-commit-sha "$DRONE_COMMIT_SHA" --override-branch "$DRONE_BRANCH" --override-build-id "$DRONE_BUILD_NUMBER"
     environment:
-      CC_TEST_REPORTER_ID: 590e79353f1037128b9835cb8c836b64c69af4d8a301ddf4473837b10617d1d7
+      QLTY_COVERAGE_TOKEN: qltcp_GJthltuZvY2mx08Z
 
   - name: Publish Node
     environment:

@@ -4,7 +4,7 @@ name: test
 
 steps:
   - name: Test Node
-    image: node:24
+    image: node:25
     commands:
       - curl https://qlty.sh | sh
       - npm ci

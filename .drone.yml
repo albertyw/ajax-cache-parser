@@ -4,7 +4,7 @@ name: test
 
 steps:
   - name: Test Node
-    image: node:24
+    image: node:25
     commands:
       - curl https://qlty.sh | sh
       - npm ci
@@ -17,7 +17,7 @@ steps:
     environment:
       NPM_TOKEN:
         from_secret: npm_token
-    image: node:24
+    image: node:25
     commands:
       - echo "//registry.npmjs.org/:_authToken=$${NPM_TOKEN}" > ~/.npmrc
       - npm whoami

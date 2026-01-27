@@ -14,18 +14,3 @@ steps:
       - ~/.qlty/bin/qlty coverage publish coverage/lcov.info --override-commit-sha "$DRONE_COMMIT_SHA" --override-branch "$DRONE_BRANCH" --override-build-id "$DRONE_BUILD_NUMBER"
     environment:
       QLTY_COVERAGE_TOKEN: qltcp_GJthltuZvY2mx08Z
-
-  - name: Publish Node
-    environment:
-      NPM_TOKEN:
-        from_secret: npm_token
-    image: node:25
-    commands:
-      - echo "//registry.npmjs.org/:_authToken=$${NPM_TOKEN}" > ~/.npmrc
-      - curl -fsSL https://get.pnpm.io/install.sh | ENV="$HOME/.bashrc" SHELL="$(which bash)" bash -
-      - export PNPM_HOME="$HOME/.local/share/pnpm" && export PATH="$PNPM_HOME:$PATH"
-      - pnpm whoami
-      - pnpm publish
-    when:
-      event:
-        - tag

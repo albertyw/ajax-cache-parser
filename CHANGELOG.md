@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.2.2 (2026-04-07)
+
+ - Update dependencies
+ - Switch from npm to pnpm
+ - Use github actions to publish releases
+
+
 ## 1.2.1 (2025-04-18)
 
 - Update dependencies

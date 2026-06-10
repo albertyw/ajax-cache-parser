@@ -4,7 +4,7 @@ name: test
 
 steps:
   - name: Test Node
-    image: node:26
+    image: node:24
     commands:
       - curl https://qlty.sh | sh
       - curl -fsSL https://get.pnpm.io/install.sh | ENV="$HOME/.bashrc" SHELL="$(which bash)" bash -

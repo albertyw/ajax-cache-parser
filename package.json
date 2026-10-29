@@ -20,9 +20,9 @@
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
-    "c8": "^11.0.0",
-    "eslint": "^10.4.1",
-    "mocha": "^11.7.6",
+    "c8": "^12.0.0",
+    "eslint": "^10.13.0",
+    "mocha": "^12.0.0",
     "xmlhttprequest": "~1.8.0"
   }
 }
